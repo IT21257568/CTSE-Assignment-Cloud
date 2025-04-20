@@ -13,7 +13,7 @@ def create_app():
     # initialize PyMongo
     mongo.init_app(app)
 
-    # register your booking blueprint
+    # registering blueprints
     app.register_blueprint(booking_bp, url_prefix="/api/booking")
     app.register_blueprint(test_routes, url_prefix='/test')
 
