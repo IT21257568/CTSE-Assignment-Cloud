@@ -1,9 +1,11 @@
 {
   "info": {
+    "_postman_id": "04fd3201-28b5-4448-850e-144063985032",
     "name": "Tour Guide CRUD",
-    "_postman_id": "a6f50180-xxxx-xxxx-xxxx-tourguidecrud123",
     "description": "CRUD operations for Tour Guide using Flask + MongoDB",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "33780579",
+    "_collection_link": "https://crimson-satellite-699929.postman.co/workspace/495c6caf-5c66-4b03-8981-48d42d9397f3/collection/33780579-04fd3201-28b5-4448-850e-144063985032?action=share&source=collection_link&creator=33780579"
   },
   "item": [
     {
@@ -21,13 +23,12 @@
           "raw": "{\n  \"GUIDE_CODE\": \"TG001\",\n  \"GUIDE_NAME\": \"Dilan Perera\",\n  \"EMAIL\": \"dilan@example.com\",\n  \"PHONE\": \"0771234567\",\n  \"LANGUAGE\": \"English\",\n  \"CREATED_USER_CODE\": \"admin01\"\n}"
         },
         "url": {
-          "raw": "http://localhost:5003/api/guides/",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "5003",
+          "raw": "{{local}}/api/guides/",
+          "host": ["{{local}}"],
           "path": ["api", "guides", ""]
         }
-      }
+      },
+      "response": []
     },
     {
       "name": "Get All Tour Guides",
@@ -35,13 +36,12 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:5003/api/guides/",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "5003",
+          "raw": "{{local}}/api/guides/",
+          "host": ["{{local}}"],
           "path": ["api", "guides", ""]
         }
-      }
+      },
+      "response": []
     },
     {
       "name": "Get Single Tour Guide",
@@ -49,13 +49,12 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:5003/api/guides/TG001",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "5003",
+          "raw": "{{local}}/api/guides/TG001",
+          "host": ["{{local}}"],
           "path": ["api", "guides", "TG001"]
         }
-      }
+      },
+      "response": []
     },
     {
       "name": "Update Tour Guide",
@@ -72,13 +71,12 @@
           "raw": "{\n  \"GUIDE_NAME\": \"Dilan Updated\",\n  \"EMAIL\": \"dilanupdated@example.com\",\n  \"LAST_MOD_USER_CODE\": \"admin02\"\n}"
         },
         "url": {
-          "raw": "http://localhost:5003/api/guides/TG001",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "5003",
+          "raw": "{{local}}/api/guides/TG001",
+          "host": ["{{local}}"],
           "path": ["api", "guides", "TG001"]
         }
-      }
+      },
+      "response": []
     },
     {
       "name": "Delete Tour Guide",
@@ -86,13 +84,12 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "http://localhost:5003/api/guides/TG001",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "5003",
+          "raw": "{{local}}/api/guides/TG001",
+          "host": ["{{local}}"],
           "path": ["api", "guides", "TG001"]
         }
-      }
+      },
+      "response": []
     }
   ]
 }
