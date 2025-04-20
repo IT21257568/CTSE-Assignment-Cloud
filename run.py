@@ -17,7 +17,6 @@ def create_app():
     # registering blueprints
     app.register_blueprint(booking_bp, url_prefix="/api/booking")
     app.register_blueprint(test_routes, url_prefix='/test')
-
     set_tour_guide_mongo(mongo)
     app.register_blueprint(tour_guide_bp, url_prefix='/api/guides')
 
