@@ -67,7 +67,7 @@ def edit_booking(booking_id):
     data = request.get_json() or {}
     update = {}
 
-    # allow updating any of these fields
+    # allow updating fields for booking records
     for field in ('BOOKING_CODE', 'BOOKING_NAME', 'CREATED_USER_CODE', 'LAST_MOD_USER_CODE', 'UUID'):
         if field in data:
             update[field] = data[field]
