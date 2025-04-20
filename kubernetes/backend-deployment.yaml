@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: base-service
+  labels:
+    app: base-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: base-service
+  template:
+    metadata:
+      labels:
+        app: base-service
+    spec:
+      containers:
+        - name: backend
+          image: asia-southeast1-docker.pkg.dev/poetic-respect-384307/ctse-backend/base-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5003
+          env:
+            - name: PORT
+              value: "5003"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"

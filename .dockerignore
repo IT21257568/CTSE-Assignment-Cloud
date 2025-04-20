@@ -1,0 +1,32 @@
+# Exclude version control files and directories
+.git
+.gitignore
+.gitattributes
+
+# Exclude GitHub Actions workflows (not needed in the build context)
+.github
+
+# Exclude local environment files
+.env
+*.env
+
+# Exclude Python caches and virtual environment directories
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+
+# Exclude build artifacts and distribution folders
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Exclude test files and logs (if not needed in your image)
+tests/
+*.log
+
+# Exclude the Flask instance folder if it contains local configs
+instance/
