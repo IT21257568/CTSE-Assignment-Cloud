@@ -1,12 +1,8 @@
 name: Build & Deploy Feedback Service to GKE
 
 on:
-  workflow_run:
-    workflows: ["SonarCloud & Snyk Scan"]
-    types:
-      - completed
-    branches:
-      - main
+  push:
+    branches: [main]
 
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
