@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: estimation-crosschecking
+  name: base-service
   labels:
-    app: estimation-crosschecking
+    app: base-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: estimation-crosschecking
+      app: base-service
   template:
     metadata:
       labels:
-        app: estimation-crosschecking
+        app: base-service
     spec:
       serviceAccountName: innoainsure-ksa
       containers:
         - name: backend
-          image: asia-southeast1-docker.pkg.dev/innoainsure-project-43/innoainsure-be/estimation-cross-checking:latest
+          image: asia-southeast1-docker.pkg.dev/poetic-respect-384307/ctse-backend/base-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5003
