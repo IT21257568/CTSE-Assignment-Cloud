@@ -1,4 +1,4 @@
-# .github/workflows/sonarcloud_analysis.yml
+# .github/workflows/sonarcloud_snyk_analysis.yml
 name: SonarCloud & Snyk Scan
 
 on:
@@ -6,11 +6,11 @@ on:
     branches: [ main ]
 
 env:
-  # SonarCloud settings
+  # SonarCloud
   SONAR_ORG:         ${{ secrets.SONAR_ORG }}
   SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
   SONAR_TOKEN:       ${{ secrets.SONAR_TOKEN }}
-  # Snyk settings
+  # Snyk
   SNYK_TOKEN:        ${{ secrets.SNYK_TOKEN }}
 
 jobs:
@@ -22,15 +22,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          node-version: '20'
+          python-version: '3.9'
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
-          cd feedback
-          npm install
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests & collect coverage
+        run: |
+          pip install pytest coverage
+          coverage run -m pytest
+          coverage xml -o coverage.xml
 
       - name: Run SonarCloud analysis
         uses: sonarsource/sonarcloud-github-action@v2
@@ -38,24 +44,22 @@ jobs:
           organization: ${{ env.SONAR_ORG }}
           token:        ${{ env.SONAR_TOKEN }}
           projectKey:   ${{ env.SONAR_PROJECT_KEY }}
-          projectName:  Feedback Service
+          projectName:  CTSE‑Assignment‑Cloud
           extraProperties: |
-            # sonar.javascript.lcov.reportPaths=feedback/coverage/lcov.info
+            sonar.sources=app
+            sonar.python.coverage.reportPaths=coverage.xml
+            sonar.exclusions=**/venv/**,**/kubernetes/**,**/.github/**
 
       - name: Install Snyk CLI
-        run: npm install -g snyk
+        run: pip install snyk
 
       - name: Run Snyk test
         env:
           SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
-        run: |
-          cd feedback
-          snyk test --severity-threshold=medium
+        run: snyk test --file=requirements.txt --severity-threshold=medium
 
       - name: Monitor with Snyk (optional)
         if: success()
         env:
           SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
-        run: |
-          cd feedback
-          snyk monitor --project-name=feedback-service
+        run: snyk monitor --file=requirements.txt --project-name=ctse-assignment-cloud
