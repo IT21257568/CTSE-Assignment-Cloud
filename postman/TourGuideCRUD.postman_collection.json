@@ -1,0 +1,98 @@
+{
+  "info": {
+    "name": "Tour Guide CRUD",
+    "_postman_id": "a6f50180-xxxx-xxxx-xxxx-tourguidecrud123",
+    "description": "CRUD operations for Tour Guide using Flask + MongoDB",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Tour Guide",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"GUIDE_CODE\": \"TG001\",\n  \"GUIDE_NAME\": \"Dilan Perera\",\n  \"EMAIL\": \"dilan@example.com\",\n  \"PHONE\": \"0771234567\",\n  \"LANGUAGE\": \"English\",\n  \"CREATED_USER_CODE\": \"admin01\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5003/api/guides/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5003",
+          "path": ["api", "guides", ""]
+        }
+      }
+    },
+    {
+      "name": "Get All Tour Guides",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5003/api/guides/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5003",
+          "path": ["api", "guides", ""]
+        }
+      }
+    },
+    {
+      "name": "Get Single Tour Guide",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5003/api/guides/TG001",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5003",
+          "path": ["api", "guides", "TG001"]
+        }
+      }
+    },
+    {
+      "name": "Update Tour Guide",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"GUIDE_NAME\": \"Dilan Updated\",\n  \"EMAIL\": \"dilanupdated@example.com\",\n  \"LAST_MOD_USER_CODE\": \"admin02\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5003/api/guides/TG001",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5003",
+          "path": ["api", "guides", "TG001"]
+        }
+      }
+    },
+    {
+      "name": "Delete Tour Guide",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5003/api/guides/TG001",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5003",
+          "path": ["api", "guides", "TG001"]
+        }
+      }
+    }
+  ]
+}
