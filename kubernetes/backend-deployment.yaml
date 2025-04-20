@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: estimation-crosschecking
+  labels:
+    app: estimation-crosschecking
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: estimation-crosschecking
+  template:
+    metadata:
+      labels:
+        app: estimation-crosschecking
+    spec:
+      serviceAccountName: innoainsure-ksa
+      containers:
+        - name: backend
+          image: asia-southeast1-docker.pkg.dev/innoainsure-project-43/innoainsure-be/estimation-cross-checking:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5003
+          env:
+            - name: PORT
+              value: "5003"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
