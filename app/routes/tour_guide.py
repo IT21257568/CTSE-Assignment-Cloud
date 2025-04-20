@@ -5,7 +5,7 @@ import datetime
 
 # Blueprint setup
 tour_guide_bp = Blueprint('tour_guide', __name__)
-mongo: PyMongo = None  # Will be set from run.py
+mongo: PyMongo = None 
 
 # Setter function for injecting mongo
 def set_mongo(mongo_instance: PyMongo):
