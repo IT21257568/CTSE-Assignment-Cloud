@@ -1,0 +1,61 @@
+# .github/workflows/sonarcloud_analysis.yml
+name: SonarCloud & Snyk Scan
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  # SonarCloud settings
+  SONAR_ORG:         ${{ secrets.SONAR_ORG }}
+  SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+  SONAR_TOKEN:       ${{ secrets.SONAR_TOKEN }}
+  # Snyk settings
+  SNYK_TOKEN:        ${{ secrets.SNYK_TOKEN }}
+
+jobs:
+  code-analysis:
+    name: Code Quality & Security
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          cd feedback
+          npm install
+
+      - name: Run SonarCloud analysis
+        uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          organization: ${{ env.SONAR_ORG }}
+          token:        ${{ env.SONAR_TOKEN }}
+          projectKey:   ${{ env.SONAR_PROJECT_KEY }}
+          projectName:  Feedback Service
+          extraProperties: |
+            # sonar.javascript.lcov.reportPaths=feedback/coverage/lcov.info
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Run Snyk test
+        env:
+          SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
+        run: |
+          cd feedback
+          snyk test --severity-threshold=medium
+
+      - name: Monitor with Snyk (optional)
+        if: success()
+        env:
+          SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
+        run: |
+          cd feedback
+          snyk monitor --project-name=feedback-service
