@@ -53,7 +53,7 @@ def get_booking(booking_id):
     try:
         doc = mongo.db.bookings.find_one({'_id': ObjectId(booking_id)})
         if not doc:
-            return jsonify({'error': 'Booking not found'}), 404
+            return jsonify({'error': 'Booking with provided id not found'}), 404
         doc['_id'] = str(doc['_id'])
         return jsonify(doc), 200
 
@@ -67,7 +67,7 @@ def edit_booking(booking_id):
     data = request.get_json() or {}
     update = {}
 
-    # allow updating any of these fields
+    # allow updating fields for booking records
     for field in ('BOOKING_CODE', 'BOOKING_NAME', 'CREATED_USER_CODE', 'LAST_MOD_USER_CODE', 'UUID'):
         if field in data:
             update[field] = data[field]

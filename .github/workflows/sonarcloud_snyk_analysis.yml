@@ -1,0 +1,65 @@
+# .github/workflows/sonarcloud_snyk_analysis.yml
+name: SonarCloud & Snyk Scan
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  # SonarCloud
+  SONAR_ORG:         ${{ secrets.SONAR_ORG }}
+  SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+  SONAR_TOKEN:       ${{ secrets.SONAR_TOKEN }}
+  # Snyk
+  SNYK_TOKEN:        ${{ secrets.SNYK_TOKEN }}
+
+jobs:
+  code-analysis:
+    name: Code Quality & Security
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests & collect coverage
+        run: |
+          pip install pytest coverage
+          coverage run -m pytest
+          coverage xml -o coverage.xml
+
+      - name: Run SonarCloud analysis
+        uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          organization: ${{ env.SONAR_ORG }}
+          token:        ${{ env.SONAR_TOKEN }}
+          projectKey:   ${{ env.SONAR_PROJECT_KEY }}
+          projectName:  CTSE‑Assignment‑Cloud
+          extraProperties: |
+            sonar.sources=app
+            sonar.python.coverage.reportPaths=coverage.xml
+            sonar.exclusions=**/venv/**,**/kubernetes/**,**/.github/**
+
+      - name: Install Snyk CLI
+        run: pip install snyk
+
+      - name: Run Snyk test
+        env:
+          SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
+        run: snyk test --file=requirements.txt --severity-threshold=medium
+
+      - name: Monitor with Snyk (optional)
+        if: success()
+        env:
+          SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
+        run: snyk monitor --file=requirements.txt --project-name=ctse-assignment-cloud
