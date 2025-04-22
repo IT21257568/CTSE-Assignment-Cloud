@@ -23,6 +23,7 @@ def create_app():
     app.register_blueprint(tour_guide_bp, url_prefix='/api/guides')
     app.register_blueprint(service_bp, url_prefix='/api/service') #service routes
     app.register_blueprint(review_bp, url_prefix='/api/reviews')
+    app.register_blueprint(service_bp, url_prefix='/api/service')
 
     return app
 
