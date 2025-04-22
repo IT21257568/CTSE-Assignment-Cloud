@@ -20,7 +20,7 @@ def create_app():
     app.register_blueprint(test_routes, url_prefix='/test')
     set_tour_guide_mongo(mongo)
     app.register_blueprint(tour_guide_bp, url_prefix='/api/guides')
-    app.register_blueprint(service_bp, url_prefix='/api/service')
+    app.register_blueprint(service_bp, url_prefix='/api/service') #service routes
 
     return app
 
