@@ -5,7 +5,7 @@ from app.types.review import Review
 from bson.objectid import ObjectId
 import datetime, uuid
 
-review_bp = Blueprint('review_bp', _name_)
+review_bp = Blueprint('review_bp', __name__)
 
 # ─── Create ────────────────────────────────────────────────────────────────
 @review_bp.route('/', methods=['POST'])
