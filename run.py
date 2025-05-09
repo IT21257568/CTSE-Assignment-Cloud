@@ -6,6 +6,7 @@ from app.routes.test_routes import test_routes
 from app.routes.tour_guide import tour_guide_bp, set_mongo as set_tour_guide_mongo
 from app.routes.service_routes import service_bp
 from flask_cors import CORS
+from app.routes.review_routes import review_bp
 
 def create_app():
     app = Flask(__name__)
@@ -20,7 +21,8 @@ def create_app():
     app.register_blueprint(test_routes, url_prefix='/test')
     set_tour_guide_mongo(mongo)
     app.register_blueprint(tour_guide_bp, url_prefix='/api/guides')
-    app.register_blueprint(service_bp, url_prefix='/api/service') #service routes
+    app.register_blueprint(review_bp, url_prefix='/api/reviews')
+    app.register_blueprint(service_bp, url_prefix='/api/service')
 
     return app
 
