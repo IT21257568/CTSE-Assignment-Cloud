@@ -9,11 +9,11 @@ env:
   PROJECT_ID: "${{ secrets.PROJECT_ID }}"
   GKE_CLUSTER: "${{ secrets.GKE_CLUSTER }}"
   GKE_ZONE: "${{ secrets.GKE_ZONE }}"
-  GKE_NAMESPACE: "${{ secrets.GKE_NAMESPACE }}" # e.g., "default"
+  GKE_NAMESPACE: "${{ secrets.GKE_NAMESPACE }}" 
   GAR_REGION: "${{ secrets.GAR_REGION }}"
   GAR_NAME: "${{ secrets.GAR_NAME }}"
   GCR_SERVICE: "${{ secrets.GCR_SERVICE }}"
-  # Use a static tag, e.g., latest, if you don't want to include the commit SHA.
+  
   IMAGE_TAG: "${{ secrets.GAR_REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.GAR_NAME }}/${{ secrets.GCR_SERVICE }}:latest"
 
 jobs:
