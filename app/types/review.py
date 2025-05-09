@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from typing import Optional, Dict, Any
 
 @dataclass
-class Booking:
+class Review:
     REVIEW_CODE: str
     REVIEW_DESCRIPTION: str
     REVIEW_RATING: str
